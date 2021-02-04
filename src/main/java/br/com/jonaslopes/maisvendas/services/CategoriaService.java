@@ -3,10 +3,12 @@ package br.com.jonaslopes.maisvendas.services;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 
 import br.com.jonaslopes.maisvendas.domain.Categoria;
 import br.com.jonaslopes.maisvendas.repositories.CategoriaRepository;
+import br.com.jonaslopes.maisvendas.services.expeptions.DataIntegrityException;
 import javassist.tools.rmi.ObjectNotFoundException;
 
 @Service
@@ -30,5 +32,15 @@ public class CategoriaService {
 	public Categoria update(Categoria obj) throws ObjectNotFoundException {
 		find(obj.getId());
 		return repo.save(obj);
+	}
+	
+	public void delete(Integer id) throws ObjectNotFoundException {
+		find(id);
+		try {
+			repo.deleteById(id);
+		}
+		catch (DataIntegrityViolationException e) {
+			throw new DataIntegrityException("Não é possível excluir uma Categoria que possui produtos!");
+		}
 	}
 }
