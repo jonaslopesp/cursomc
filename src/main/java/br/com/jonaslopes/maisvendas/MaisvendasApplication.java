@@ -102,7 +102,7 @@ public class MaisvendasApplication implements CommandLineRunner{
 		clienteRepository.saveAll(Arrays.asList(cli1));
 		enderecoRepository.saveAll(Arrays.asList(e1, e2));
 		
-		SimpleDateFormat sdf = new SimpleDateFormat("dd/mm/yyy HH:mm");
+		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyy HH:mm");
 		
 		Pedido ped1 = new Pedido(null, sdf.parse("02/02/2021 10:32"), cli1, e1);
 		Pedido ped2 = new Pedido(null, sdf.parse("03/02/2021 14:32"), cli1, e2);
